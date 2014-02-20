@@ -3,6 +3,8 @@
   <persistence-unit name="TreeDBXPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.bookshop.entity.Book</class>
+    <class>com.bookshop.entity.Author</class>
+    <class>com.bookshop.entity.Type</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dsa?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="rhynox"/>
