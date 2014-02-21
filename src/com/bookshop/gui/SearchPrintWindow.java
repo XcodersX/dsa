@@ -4,6 +4,10 @@
  */
 package com.bookshop.gui;
 
+import java.text.MessageFormat;
+import java.awt.print.*;
+import javax.swing.JTable;
+
 /**
  *
  * @author amila
@@ -84,6 +88,11 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
         );
 
         btnPrintAll.setText("Print List");
+        btnPrintAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,15 +111,29 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPrintAll)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPrintAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintAllActionPerformed
+        // create header for the report
+        MessageFormat header = new MessageFormat("Book List");
+        // create footer for the report with page numbering
+        MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+        try {
+            //print the data of the table
+            searchTable.print(JTable.PrintMode.NORMAL, header, footer);
+        } catch (java.awt.print.PrinterException ex) {
+            System.err.format("Cannot Print", ex.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintAllActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrintAll;
     private javax.swing.JButton btnSearch;

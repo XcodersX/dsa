@@ -4,13 +4,12 @@
  */
 package com.bookshop.gui;
 
-import com.jtattoo.plaf.mint.MintLookAndFeel;
-import java.awt.GridLayout;
+
+import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -214,8 +213,8 @@ public class MainWindow extends javax.swing.JFrame {
             public void run() {
                 try {
                     //Used to set the theme for the Forms
-                    UIManager.setLookAndFeel(new MintLookAndFeel());
-                } catch (UnsupportedLookAndFeelException ex) {
+                    UIManager.setLookAndFeel(new GraphiteLookAndFeel());
+                } catch (Exception ex) {
                     Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 new MainWindow().setVisible(true);
