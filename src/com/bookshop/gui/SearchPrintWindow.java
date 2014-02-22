@@ -20,6 +20,7 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
      */
     public SearchPrintWindow() {
         initComponents();
+        setTitle("Serch Books");
     } 
 
     /**
@@ -144,11 +145,13 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
 
         
         if(txtSearch.getText().equals("")){
-                //************check whether the searching value is empty*************************
+                //************check whether the searching value TextField  is empty*************************
             JOptionPane.showMessageDialog(null, "Please Enter value for search!");
         }
         else{
         //************coding for the searching particular  book & populate that data into  the table goes here*********************
+            
+            //To Xcoders :- write code for search books here
         
         }
     }//GEN-LAST:event_btnSearchActionPerformed

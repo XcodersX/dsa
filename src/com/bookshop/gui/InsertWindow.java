@@ -153,28 +153,33 @@ public class InsertWindow extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        //to add a new book to the database.....ur code should be written in here
+        //t***** we can add a new book to the database through this funcyion
         
         if(txtBookTitle.getText().equals("")){
             JOptionPane.showMessageDialog(null,"Book Title Cannot Be Empty!");
         
-        //check whether the Book name is empty
+        //******************check whether the Book name is empty******************
         }
         else if(txtIsbn.getText().equals("")){
+             //******************check whether the ISBN is empty******************
                JOptionPane.showMessageDialog(null, "ISBN Code cannot be Empty!");
         } else {            
-         //code for inserting a book into the database goes here
+        
+            
+          //To Xcoders :-  code for inserting a book into the database goes here
         }
     }//GEN-LAST:event_btnInsertActionPerformed
  
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+       //*******reseting TextFields**********************************************
+        
         txtBookTitle.setText("");
         txtIsbn.setText("");
 
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnNewAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAuthorActionPerformed
-
+        //********************Direct  to adding new Author Window****************
         NewAuthorWindow nwAuthor =  new NewAuthorWindow();
         nwAuthor.setVisible(true);
     }//GEN-LAST:event_btnNewAuthorActionPerformed

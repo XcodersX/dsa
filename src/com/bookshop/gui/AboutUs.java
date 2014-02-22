@@ -15,6 +15,7 @@ public class AboutUs extends javax.swing.JInternalFrame {
      */
     public AboutUs() {
         initComponents();
+        setTitle("About Us");
     }
 
     /**

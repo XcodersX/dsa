@@ -17,6 +17,7 @@ public class NewAuthorWindow extends javax.swing.JFrame {
      */
     public NewAuthorWindow() {
         initComponents();
+        setTitle("Add New Author");
     }
 
     /**
@@ -105,17 +106,17 @@ public class NewAuthorWindow extends javax.swing.JFrame {
         //************************check whether the  author's Surname is empty****************
         if(txtAuthorSurname.getText().equals("")){
         
-        JOptionPane.showMessageDialog(null, "Author's Surname Cannot Empty!");
+        JOptionPane.showMessageDialog(null, "Author's Surname Cannot Be Empty!");
         
         }
         //****************************Check whether the author's First name is empty***********
         else if(txtFirstName.getText().equals("")){
             
-        JOptionPane.showMessageDialog( null, "Author First Cannot Be Empty!");
+        JOptionPane.showMessageDialog( null, "Author First Name Cannot Be Empty!");
         }
         else{
         //
-        //Coding for the insert student into goes here
+        //To Xcoders :-Coding for the insert new Author  goes here
         
         
         
