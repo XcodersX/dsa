@@ -4,6 +4,8 @@
  */
 package com.bookshop.gui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author amila
@@ -31,7 +33,7 @@ public class NewAuthorWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
         btnAddAuthor = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -40,8 +42,18 @@ public class NewAuthorWindow extends javax.swing.JFrame {
         jLabel1.setText("First Name");
 
         btnAddAuthor.setText("Add Author");
+        btnAddAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAuthorActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Reset");
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,7 +67,7 @@ public class NewAuthorWindow extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(btnAddAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtAuthorSurname)
@@ -76,12 +88,39 @@ public class NewAuthorWindow extends javax.swing.JFrame {
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddAuthor)
-                    .addComponent(jButton1))
+                    .addComponent(btnReset))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // **********************reset the fields of add author window************************
+        txtFirstName.setText("") ;
+        txtAuthorSurname.setText("");
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnAddAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAuthorActionPerformed
+        //************************check whether the  author's Surname is empty****************
+        if(txtAuthorSurname.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(null, "Author's Surname Cannot Empty!");
+        
+        }
+        //****************************Check whether the author's First name is empty***********
+        else if(txtFirstName.getText().equals("")){
+            
+        JOptionPane.showMessageDialog( null, "Author First Cannot Be Empty!");
+        }
+        else{
+        //
+        //Coding for the insert student into goes here
+        
+        
+        
+        }
+    }//GEN-LAST:event_btnAddAuthorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,7 +159,7 @@ public class NewAuthorWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Surname;
     private javax.swing.JButton btnAddAuthor;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtAuthorSurname;
     private javax.swing.JTextField txtFirstName;

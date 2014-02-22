@@ -4,6 +4,8 @@
  */
 package com.bookshop.gui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author amila
@@ -151,9 +153,20 @@ public class InsertWindow extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        //to add a new book to the database ur code should be written in here
+        //to add a new book to the database.....ur code should be written in here
+        
+        if(txtBookTitle.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Book Title Cannot Be Empty!");
+        
+        //check whether the Book name is empty
+        }
+        else if(txtIsbn.getText().equals("")){
+               JOptionPane.showMessageDialog(null, "ISBN Code cannot be Empty!");
+        } else {            
+         //code for inserting a book into the database goes here
+        }
     }//GEN-LAST:event_btnInsertActionPerformed
-
+ 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         txtBookTitle.setText("");
         txtIsbn.setText("");

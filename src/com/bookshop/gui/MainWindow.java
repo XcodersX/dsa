@@ -145,6 +145,8 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         //InsertFrame inf = new InsertFrame();
         //inf.setVisible(true);
+        
+        //***************************direct to Insert New Book window*********************************
         InsertWindow iw = new InsertWindow();
         jdpMyWindow.add(iw);
         iw.setVisible(true);
@@ -152,7 +154,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddBookActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // through this action we can direct to search window
+        // ************************through this action we can direct to search window**************************
         
        // SearchWindow searchW = new SearchWindow();
        // searchW.setVisible(true);
@@ -166,47 +168,28 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
      /*
-     * This method is used to Exit the main window
+     * ******************This method is used to Exit the main window******************
      */
         this.dispose();
         
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            // TODO add your handling code here:
+            // ***********direct to the about us window.that window contain little information about our group*****************
         AboutUs abtUs = new AboutUs();
         jdpMyWindow.add(abtUs);
         abtUs.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void setFrameIcon(){
+        
+        //****************this method used to set Frame icon********************************************
     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("bookshelf.png")));
     
     }
     
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+       
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

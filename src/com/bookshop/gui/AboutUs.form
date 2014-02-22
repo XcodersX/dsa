@@ -38,7 +38,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="230" max="-2" attributes="0"/>
@@ -59,7 +59,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="contentType" type="java.lang.String" value="text/html" noResource="true"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;  &lt;head&gt;&#xa;&#xa;  &lt;/head&gt;&#xa;  &lt;body&gt;&#xa;    &lt;p style=&quot;margin-top: 0&quot;&gt;&#xa;      &lt;i&gt;Our Members&lt;/i&gt;&#xa;&#x9;&lt;ul&gt;&#xa;&#x9;&lt;li&gt;Ravindu Kaluarachchi&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Amila Jayanga&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Lochana Pahalawatte&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Vijani Supeshala&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Sanushika Asheni&lt;/li&gt;&#xa;&#x9;&lt;/ul&gt;&#xa;    &lt;/p&gt;&#xa;  &lt;/body&gt;&#xa;&lt;/html&gt;&#xa;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;  &lt;head&gt;&#xa;&#xa;  &lt;/head&gt;&#xa;  &lt;body&gt;&#xa;    &lt;p style=&quot;margin-top: 0&quot;&gt;&#xa;      &lt;i&gt;Our Members&lt;/i&gt;&#xa;&#x9;&lt;ul&gt;&#xa;&#x9;&lt;li&gt;Ravindu Kaluarachchi&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Amila Jayanga&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Lochana Pahalawatte&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Vijani Supeshala&lt;/li&gt;&#xa;&#x9;&lt;li&gt;Sanushika Asheni&lt;/li&gt;&#xa;&#x9;&lt;/ul&gt;&#xa;    &lt;/p&gt;&#xa;&lt;p&gt;&#xa;&#x9;This application was created as group project for DSA module in BSC in CS&#xa;&lt;/p&gt;&#xa;  &lt;/body&gt;&#xa;&lt;/html&gt;&#xa;"/>
           </Properties>
         </Component>
       </SubComponents>
