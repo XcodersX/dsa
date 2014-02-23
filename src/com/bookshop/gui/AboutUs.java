@@ -15,6 +15,7 @@ public class AboutUs extends javax.swing.JInternalFrame {
      */
     public AboutUs() {
         initComponents();
+        setTitle("About Us");
     }
 
     /**
@@ -37,7 +38,7 @@ public class AboutUs extends javax.swing.JInternalFrame {
 
         jTextPane1.setEditable(false);
         jTextPane1.setContentType("text/html"); // NOI18N
-        jTextPane1.setText("<html>\n  <head>\n\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n      <i>Our Members</i>\n\t<ul>\n\t<li>Ravindu Kaluarachchi</li>\n\t<li>Amila Jayanga</li>\n\t<li>Lochana Pahalawatte</li>\n\t<li>Vijani Supeshala</li>\n\t<li>Sanushika Asheni</li>\n\t</ul>\n    </p>\n  </body>\n</html>\n");
+        jTextPane1.setText("<html>\n  <head>\n\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n      <i>Our Members</i>\n\t<ul>\n\t<li>Ravindu Kaluarachchi</li>\n\t<li>Amila Jayanga</li>\n\t<li>Lochana Pahalawatte</li>\n\t<li>Vijani Supeshala</li>\n\t<li>Sanushika Asheni</li>\n\t</ul>\n    </p>\n<p>\n\tThis application was created as group project for DSA module in BSC in CS\n</p>\n  </body>\n</html>\n");
         jScrollPane1.setViewportView(jTextPane1);
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
@@ -57,7 +58,7 @@ public class AboutUs extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
