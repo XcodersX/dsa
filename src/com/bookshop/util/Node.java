@@ -49,14 +49,22 @@ public class Node {
     }
     
     public Boolean hasLeftChild(){
-        return leftChild == null ? true:false;                
+        return leftChild != null ? true:false;                
     }
     
-    public Boolean rightLeftChild(){
-        return rightChild == null ? true:false;                
+    public Boolean hasRightChild(){
+        return rightChild != null ? true:false;                
     }
     
     public Boolean isRoot(){
-        return parent != null ? true:false;                
+        return parent == null ? true:false;                
     }
+
+    @Override
+    public String toString() {
+        return "Node{" + "parent=" + parent + ", leftChild=" + leftChild + ", rightChild=" + rightChild + ", book=" + book + '}';
+    }
+    
+    
+        
 }

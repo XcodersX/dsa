@@ -18,8 +18,12 @@ public class BinarySearchTree {
 
     //viji----------------------------------------------------------------------
     public void add(Book book){
-        //code here
+       
     }
+    
+    
+    
+    
     public void addall(List<Book> books){
         //code here
     }
@@ -50,4 +54,6 @@ public class BinarySearchTree {
         return books;
     }
             
+    
+    
 }
