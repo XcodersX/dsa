@@ -20,7 +20,7 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
      */
     public SearchPrintWindow() {
         initComponents();
-        setTitle("Serch Books");
+        setTitle("Search Books");
     } 
 
     /**
