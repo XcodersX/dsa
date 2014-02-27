@@ -59,11 +59,19 @@ public class Node {
     public Boolean isRoot(){
         return parent == null ? true:false;                
     }
+    
+    public boolean isExternal(){
+        return !hasLeftChild() && !hasRightChild();
+    }
 
     @Override
     public String toString() {
-        return "Node{" + "parent=" + parent + ", leftChild=" + leftChild + ", rightChild=" + rightChild + ", book=" + book + '}';
+        String lc = leftChild == null ? "null" : leftChild.getBook().getTitle();
+        String rc = rightChild == null ? "null" : rightChild.getBook().getTitle();
+        String p = parent == null ? "null" : parent.getBook().getTitle();
+        return "Node{" + "parent=" + parent + ", leftChild=" + lc  + ", rightChild=" + rc + ", book=" + book.getTitle() + '}';
     }
+
     
     
         

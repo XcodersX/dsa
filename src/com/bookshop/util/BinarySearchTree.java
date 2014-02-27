@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bookshop.util;
 
 import com.bookshop.entity.Book;
@@ -9,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author ravindu
- */
+*
+* @author ravindu
+*/
 public class BinarySearchTree {
 
     private Node root;
@@ -32,7 +28,7 @@ public class BinarySearchTree {
     public Book remove(Integer isbn){
         Book bookRemoved = null;
         //code here
-        return  bookRemoved;
+        return bookRemoved;
     }
     
     public List<Book> remove(String name){
@@ -45,7 +41,7 @@ public class BinarySearchTree {
     public List<Book> find(String name){
         List<Book> books = new ArrayList<>();
             //code here
-        return books;            
+        return books;
     }
     
     public List<Book> findAll(){
