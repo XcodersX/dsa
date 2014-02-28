@@ -4,6 +4,7 @@
  */
 package com.bookshop.gui;
 
+import com.bookshop.util.BinarySearchTree;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +16,25 @@ public class RemoveWindow extends javax.swing.JInternalFrame {
     /**
      * Creates new form RemoveWindow
      */
+     
+    public String bookIdentifier; //used to assign the name of the book for particular ISBNte
+    private BinarySearchTree searchTree;
+    
+    //no args constructor
     public RemoveWindow() {
         initComponents();
        // bookIdentifier = "test1 value"; 
         setTitle("Remove Book");
     }
+    //overloaded constructor
+    public RemoveWindow(BinarySearchTree bst) {
+        initComponents();
+       // bookIdentifier = "test1 value"; 
+        setTitle("Remove Book");
+        searchTree = bst;
+    }
     
-    public String bookIdentifier; //used to assign the name of the book for particular ISBN
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -4,6 +4,17 @@
  */
 package com.bookshop.gui;
 
+import com.bookshop.controller.AuthorJpaController;
+import com.bookshop.controller.BookJpaController;
+import com.bookshop.controller.TypeJpaController;
+import com.bookshop.entity.Author;
+import com.bookshop.entity.Book;
+import com.bookshop.entity.Type;
+import com.bookshop.util.BinarySearchTree;
+import com.bookshop.util.ComboItem;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,10 +26,43 @@ public class InsertWindow extends javax.swing.JInternalFrame {
     /**
      * Creates new form InsertWindow
      */
-    public InsertWindow() {
+    private List<Author> authors = new ArrayList();         
+    private List<Type> bookType = new ArrayList();
+    private AuthorJpaController ajc ;               //*********ajc variable used to access  Author JPA controller*************
+    private TypeJpaController tjc;                  //*********tjc variable used to access Type JPA controller****************
+    private BinarySearchTree searchTree;
+ 
+    
+    public InsertWindow(){
+    } 
+    public InsertWindow(BinarySearchTree bst) {
+        
         initComponents();
+        
         setTitle("Add New Book");
+        searchTree = bst;
+        
+        tjc = new TypeJpaController();
+        ajc = new AuthorJpaController();
+        
+        authors = ajc.findAuthorEntities();
+        for(Author  au:authors){
+        //******************load authors names to combo box******************************************  
+       cmbAuthor.addItem(new ComboItem(au.getId(),au.getSurname().toString()+" "+au.getName().toString()));
+       
+     //cmbAuthor.addItem(new Item(au.getId(),au.getName().toString() + " " +au.getSurname().toString()));
+        }
+      bookType = tjc.findTypeEntities();
+      for(Type ty : bookType){
+          //*****************load type list to combo box**********************************************
+          cmbType.addItem(new ComboItem(ty.getId(),ty.getName()));
+      }
+        
     }
+    
+   /* public InsertWindow(InsertWindow iw){
+    
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +84,8 @@ public class InsertWindow extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         btnNewAuthor = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbType = new javax.swing.JComboBox();
+        btnRefresh = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -65,8 +110,6 @@ public class InsertWindow extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbAuthor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel6.setText("Author");
 
         btnNewAuthor.setText("Add New Author");
@@ -78,34 +121,43 @@ public class InsertWindow extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Category");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Java", "PHP" }));
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout insesrtPanelLayout = new javax.swing.GroupLayout(insesrtPanel);
         insesrtPanel.setLayout(insesrtPanelLayout);
         insesrtPanelLayout.setHorizontalGroup(
             insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(insesrtPanelLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3))
-                .addGap(46, 46, 46)
-                .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(insesrtPanelLayout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, insesrtPanelLayout.createSequentialGroup()
-                            .addComponent(cmbAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnNewAuthor))
-                        .addComponent(txtBookTitle, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtIsbn, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(insesrtPanelLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3))
+                        .addGap(46, 46, 46)
+                        .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, insesrtPanelLayout.createSequentialGroup()
+                                    .addComponent(cmbAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnNewAuthor))
+                                .addComponent(txtBookTitle, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtIsbn, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(insesrtPanelLayout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         insesrtPanelLayout.setVerticalGroup(
@@ -127,11 +179,12 @@ public class InsertWindow extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(insesrtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReset)
-                    .addComponent(btnInsert))
+                    .addComponent(btnInsert)
+                    .addComponent(btnRefresh))
                 .addGap(75, 75, 75))
         );
 
@@ -163,10 +216,33 @@ public class InsertWindow extends javax.swing.JInternalFrame {
         else if(txtIsbn.getText().equals("")){
              //******************check whether the ISBN is empty******************
                JOptionPane.showMessageDialog(null, "ISBN Code cannot be Empty!");
-        } else {            
+        }
+        else if(txtIsbn.getText().length() != 9){
+            //* *****************check whether the ISBN has 9 digits***************
+        
+        
+        }else {            
         
             
           //To Xcoders :-  code for inserting a book into the database goes here
+            
+            Book book = new Book();
+            book.setIsbn(new Integer(txtIsbn.getText()));
+            book.setTitle(txtBookTitle.getText());
+          // book.setType(cmbType.getSelectedIndex());
+            book.setAuthor(ajc.findAuthor(((ComboItem)cmbAuthor.getSelectedItem()).getKey()));
+            //System.out.println(ajc.findAuthor(((ComboItem)cmbAuthor.getSelectedItem()).getKey()));
+            book.setType(tjc.findType(((ComboItem)cmbType.getSelectedItem()).getKey()));
+           // System.out.println(ajc.findAuthor(((ComboItem)cmbType.getSelectedItem()).getKey()));
+            
+            try {
+                BookJpaController bookController = new BookJpaController ();
+                bookController.create(book);
+                JOptionPane.showMessageDialog(null, "Book Inserted to the DataBase Successfully!!!!!");
+                searchTree.add(book);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error Occurred while inserting book to the database");
+            }
         }
     }//GEN-LAST:event_btnInsertActionPerformed
  
@@ -178,19 +254,31 @@ public class InsertWindow extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnResetActionPerformed
 
+    
     private void btnNewAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAuthorActionPerformed
         //********************Direct  to adding new Author Window****************
         NewAuthorWindow nwAuthor =  new NewAuthorWindow();
         nwAuthor.setVisible(true);
     }//GEN-LAST:event_btnNewAuthorActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here
+        cmbAuthor.removeAllItems();
+         authors = ajc.findAuthorEntities();
+        for(Author  au:authors){
+        //cmbAuthor.
+       // cmbAuthor.addItem(au.getName().toString() + " " +au.getSurname().toString());
+        }
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnNewAuthor;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReset;
     private javax.swing.JComboBox cmbAuthor;
-    private javax.swing.JPanel insesrtPanel;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox cmbType;
+    public javax.swing.JPanel insesrtPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

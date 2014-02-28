@@ -5,6 +5,7 @@
 package com.bookshop.gui;
 
 
+import com.bookshop.util.BinarySearchTree;
 import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import java.awt.Toolkit;
 import java.util.logging.Level;
@@ -20,6 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    private BinarySearchTree searchTree;
     public MainWindow() {
         initComponents();
         setTitle("Universal BookShop");
@@ -27,6 +29,14 @@ public class MainWindow extends javax.swing.JFrame {
         //this.setSize(500,350);
        // jPanel1.setLayout(new GridLayout(4,1));
        // jPanel1.setSize(450,300);
+    }
+
+    public MainWindow(BinarySearchTree bst) {
+        searchTree = bst;
+        initComponents();
+        setTitle("Universal BookShop");
+        setFrameIcon();
+        
     }
 
    
@@ -161,7 +171,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         //***************************direct to Insert New Book window*********************************
         
-        InsertWindow iw = new InsertWindow();      //***** create instance of  Remove window(internalJFrame)
+        InsertWindow iw = new InsertWindow(searchTree);      //***** create instance of  Remove window(internalJFrame)
         jdpMyWindow.add(iw);
         iw.setVisible(true);
         
@@ -172,7 +182,7 @@ public class MainWindow extends javax.swing.JFrame {
         
        // SearchWindow searchW = new SearchWindow();
        // searchW.setVisible(true);
-        SearchPrintWindow spw = new SearchPrintWindow();        //***** create instance of  SearchPrintWindow(internalJFrame)
+        SearchPrintWindow spw = new SearchPrintWindow(searchTree);        //***** create instance of  SearchPrintWindow(internalJFrame)
         jdpMyWindow.add(spw);                                   // add that window to the JDesktopPane
         spw.setVisible(true);                                   // set visble spw(InternalJframe)
         
@@ -200,7 +210,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // Direct to the book deleting window
         
-        RemoveWindow  remove = new RemoveWindow(); //***** create instance of  Remove window(internalJFrame)
+        RemoveWindow  remove = new RemoveWindow(searchTree); //***** create instance of  Remove window(internalJFrame)
         jdpMyWindow.add(remove);                   //******add that window to DesktopPane
         remove.setVisible(true);                    //******set that window visible when the button is clicked
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -218,13 +228,8 @@ public class MainWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    //Used to set the theme for the Forms
-                    UIManager.setLookAndFeel(new GraphiteLookAndFeel());
-                } catch (Exception ex) {
-                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                new MainWindow().setVisible(true);
+            
+               // new MainWindow().setVisible(true);
             }
         });
     }
