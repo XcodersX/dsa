@@ -24,9 +24,9 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer isbn;
     private String title;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Author author;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Type type;
 
     public Integer getIsbn() {

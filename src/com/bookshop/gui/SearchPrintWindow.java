@@ -4,6 +4,7 @@
  */
 package com.bookshop.gui;
 
+import com.bookshop.util.BinarySearchTree;
 import java.text.MessageFormat;
 import java.awt.print.*;
 import javax.swing.JOptionPane;
@@ -18,9 +19,19 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
     /**
      * Creates new form SearchPrintWindow
      */
+    private BinarySearchTree searchTree;
+    
+    //no arguments constructor
     public SearchPrintWindow() {
         initComponents();
         setTitle("Serch Books");
+    } 
+    
+    //ovarloaded constructor
+    public SearchPrintWindow(BinarySearchTree bst) {
+        initComponents();
+        setTitle("Serch Books");
+        searchTree = bst;
     } 
 
     /**

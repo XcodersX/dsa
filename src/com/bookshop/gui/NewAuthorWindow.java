@@ -4,6 +4,9 @@
  */
 package com.bookshop.gui;
 
+import com.bookshop.controller.AuthorJpaController;
+import com.bookshop.entity.Author;
+import com.bookshop.util.BinarySearchTree;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,14 +15,19 @@ import javax.swing.JOptionPane;
  */
 public class NewAuthorWindow extends javax.swing.JFrame {
 
-    /**
+    /** 
      * Creates new form NewAuthorWindow
      */
-    public NewAuthorWindow() {
+    private BinarySearchTree searchTree;
+    public NewAuthorWindow(){
+    }
+    public NewAuthorWindow(BinarySearchTree bst) {
+        searchTree = bst;
         initComponents();
         setTitle("Add New Author");
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,9 +124,22 @@ public class NewAuthorWindow extends javax.swing.JFrame {
         }
         else{
         //
-        //To Xcoders :-Coding for the insert new Author  goes here
-        
-        
+        //****************** create new author object and set values to it*********************
+        Author newAuthor = new Author();
+        newAuthor.setSurname(txtAuthorSurname.getText());
+        newAuthor.setName(txtFirstName.getText());
+        //*****************insert new author to database****************************************
+            try {
+                 AuthorJpaController authorController = new AuthorJpaController();
+                 authorController.create(newAuthor);
+                 JOptionPane.showMessageDialog(null,"New Author is added successfully");
+                 
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Author couldnt Added to the database");
+                
+            }
+       
         
         }
     }//GEN-LAST:event_btnAddAuthorActionPerformed

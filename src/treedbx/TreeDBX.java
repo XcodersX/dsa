@@ -8,9 +8,14 @@ import com.bookshop.controller.BookJpaController;
 import com.bookshop.entity.Author;
 import com.bookshop.entity.Book;
 import com.bookshop.entity.Type;
+import com.bookshop.gui.MainWindow;
 import com.bookshop.util.BinarySearchTree;
+import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,7 +26,24 @@ public class TreeDBX {
     /**
      * @param args the command line arguments
      */
+   
+    
+    public TreeDBX(){
+    
+  
+    }
+    
+    
     public static void main(String[] args) {
+        
+        BinarySearchTree searchTree = new BinarySearchTree();
+            try {
+                    //Used to set the theme for the Forms
+                    UIManager.setLookAndFeel(new GraphiteLookAndFeel());
+                } catch (Exception ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+         new MainWindow(searchTree).setVisible(true);
        /*Book book = new Book();
         book.setIsbn(234457845);
         book.setTitle("TINTIN");
@@ -37,6 +59,8 @@ public class TreeDBX {
         BookJpaController bjc = new BookJpaController();        
         bjc.create(book); */
         //book1
+        
+        
         Book book = new Book();
         book.setIsbn(1);
         book.setTitle("TINTIN");
