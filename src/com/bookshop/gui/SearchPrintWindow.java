@@ -4,11 +4,16 @@
  */
 package com.bookshop.gui;
 
+import com.bookshop.controller.BookJpaController;
 import com.bookshop.util.BinarySearchTree;
 import java.text.MessageFormat;
-import java.awt.print.*;
+//import java.awt.print.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import com.bookshop.entity.Book;
 
 /**
  *
@@ -20,11 +25,16 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
      * Creates new form SearchPrintWindow
      */
     private BinarySearchTree searchTree;
+    private String[] titles={"Name","ISBN","Author"};
+    DefaultTableModel model = new  DefaultTableModel();
+    private List<Book> bookList = new ArrayList();
     
     //no arguments constructor
     public SearchPrintWindow() {
         initComponents();
         setTitle("Serch Books");
+       // model.setColumnIdentifiers(titles);
+        
     } 
     
     //ovarloaded constructor
@@ -32,6 +42,7 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
         initComponents();
         setTitle("Serch Books");
         searchTree = bst;
+        model.setColumnIdentifiers(new String[]{"ISBN","Title","Author"});
     } 
 
     /**
@@ -49,6 +60,7 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnPrintAll = new javax.swing.JButton();
 
         setClosable(true);
@@ -74,10 +86,17 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Enter KeyWord");
 
-        btnSearch.setText("Search");
+        btnSearch.setText("Single Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Multiple Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -89,10 +108,14 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,9 +123,12 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch)
                     .addComponent(jLabel1))
-                .addGap(58, 58, 58))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch)
+                    .addComponent(jButton1))
+                .addGap(25, 25, 25))
         );
 
         btnPrintAll.setText("Print List");
@@ -128,9 +154,9 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPrintAll)
                 .addGap(24, 24, 24))
@@ -153,7 +179,6 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPrintAllActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
         
         if(txtSearch.getText().equals("")){
                 //************check whether the searching value TextField  is empty*************************
@@ -161,15 +186,51 @@ public class SearchPrintWindow extends javax.swing.JInternalFrame {
         }
         else{
         //************coding for the searching particular  book & populate that data into  the table goes here*********************
-            
-            //To Xcoders :- write code for search books here
-        
+           model.setRowCount(0); 
+          bookList =searchTree.find(txtSearch.getText());
+          
+
+          
+            System.out.println("S:"+1);
+         for(Book b:bookList){
+             System.out.println("b:"+b.getIsbn());
+         model.addRow(new String[]{b.getIsbn().toString(),b.getTitle().toString(),b.getAuthor().getSurname().toString()+" "+b.getAuthor().getName().toString()});
+             System.out.println("sout"+b.getIsbn().toString()+"ti"+b.getTitle().toString()+"au"+b.getAuthor().getSurname().toString());
+         }
+        searchTable.setModel(model);
+        searchTree.print();
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+           if(txtSearch.getText().equals("")){
+                //************check whether the searching value TextField  is empty*************************
+            JOptionPane.showMessageDialog(null, "Please Enter value for search!");
+        }
+        else{
+        //************coding for the searching particular  book & populate that data into  the table goes here*********************
+           model.setRowCount(0); 
+          bookList =searchTree.findAll(txtSearch.getText());
+          
+
+          
+            System.out.println("S:"+1);
+         for(Book b:bookList){
+             System.out.println("b:"+b.getIsbn());
+         model.addRow(new String[]{b.getIsbn().toString(),b.getTitle().toString(),b.getAuthor().getSurname().toString()+" "+b.getAuthor().getName().toString()});
+             System.out.println("sout"+b.getIsbn().toString()+"ti"+b.getTitle().toString()+"au"+b.getAuthor().getSurname().toString());
+         }
+        searchTable.setModel(model);
+        searchTree.print();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrintAll;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

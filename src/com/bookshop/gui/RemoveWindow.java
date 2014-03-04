@@ -4,7 +4,14 @@
  */
 package com.bookshop.gui;
 
+import com.bookshop.controller.BookJpaController;
+import com.bookshop.controller.exceptions.NonexistentEntityException;
+import com.bookshop.entity.Book;
+import com.bookshop.exceptions.NonExistingBookException;
 import com.bookshop.util.BinarySearchTree;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,8 +24,12 @@ public class RemoveWindow extends javax.swing.JInternalFrame {
      * Creates new form RemoveWindow
      */
      
-    public String bookIdentifier; //used to assign the name of the book for particular ISBNte
+    public String bookIdentifier; //used to assign the name of the book for particular ISBN
+    public String bookAuthor;
     private BinarySearchTree searchTree;
+    private Book book;
+    private BookJpaController bjp;
+    private Integer bookIsbn;
     
     //no args constructor
     public RemoveWindow() {
@@ -32,6 +43,8 @@ public class RemoveWindow extends javax.swing.JInternalFrame {
        // bookIdentifier = "test1 value"; 
         setTitle("Remove Book");
         searchTree = bst;
+        book = new Book();
+        bjp = new BookJpaController();
     }
     
 
@@ -45,22 +58,17 @@ public class RemoveWindow extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        cmbRemoveType = new javax.swing.JComboBox();
         txtRemoveValue = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnRemoveBook = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
-        jLabel1.setText("Delete By Using");
-
-        cmbRemoveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISBN", "Book Title" }));
-
-        jLabel2.setText("ISBN/Book Title");
+        jLabel2.setText("ISBN Number");
 
         btnRemoveBook.setText("Remove");
         btnRemoveBook.addActionListener(new java.awt.event.ActionListener() {
@@ -69,38 +77,39 @@ public class RemoveWindow extends javax.swing.JInternalFrame {
             }
         });
 
+        lblError.setForeground(java.awt.Color.red);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnRemoveBook, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtRemoveValue)
-                            .addComponent(cmbRemoveType, 0, 163, Short.MAX_VALUE))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRemoveBook, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(43, 43, 43)
+                                .addComponent(txtRemoveValue, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(lblError)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cmbRemoveType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRemoveValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(72, 72, 72)
+                .addGap(35, 35, 35)
+                .addComponent(lblError)
+                .addGap(22, 22, 22)
                 .addComponent(btnRemoveBook)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
@@ -108,47 +117,64 @@ public class RemoveWindow extends javax.swing.JInternalFrame {
 
     private void btnRemoveBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveBookActionPerformed
     
-    if(cmbRemoveType.getSelectedItem().toString().equals("ISBN")){
-    
-        //To Xcoders  :- search the book name for the particular ISBN and assign it to bookidentifier variable
-    
-    }
-    else{
-    
-        bookIdentifier = txtRemoveValue.getText();
-    
-    }
+
+  
+       
+
         
    if (txtRemoveValue.getText().equals("")){ 
        
-       JOptionPane.showMessageDialog(null,"Please Enter ISBN/Book Title");
+     lblError.setText("Please Enter ISBN Number");
    } 
+   else if(txtRemoveValue.getText().length() != 9){
+        lblError.setText("ISBN number should have 9 digits");
+   }
    else{
-       
-        
+       try {
+            bookIsbn = Integer.parseInt(txtRemoveValue.getText());
+     
+        book = bjp.findBook(bookIsbn);
+         bookIdentifier = book.getTitle();
+         bookAuthor = book.getAuthor().getSurname().toString()+" "+book.getAuthor().getName().toString();
         // first ask confirmation to delete the particular book through confirmation dialogue
-       int reply = JOptionPane.showConfirmDialog(null,"Are you want to delete " +bookIdentifier+" ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+       int reply = JOptionPane.showConfirmDialog(null,"Are you want to delete book " +bookIdentifier.toUpperCase()+" By "+bookAuthor+" ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
        
        if(reply == JOptionPane.OK_OPTION){
-          //******** if user reply is OK...then remove the book 
+            
+                
+                //******** if user reply is OK...then remove the book 
+                 bjp.destroy(bookIsbn);
+                 searchTree.remove(bookIsbn);
+                 txtRemoveValue.setText("");
+                 JOptionPane.showMessageDialog(null, "Book remove successfully!");}
+                 
+                 
+            } 
+             catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please Enter numeric value for ISBN");
+            }
+            catch (NonExistingBookException ex) {
+                Logger.getLogger(RemoveWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(RemoveWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch(Exception e){
+                    System.out.println("Error Ocurred!!!!");
+            }
            
-            //To Xcoders  :- write code to remove Book from database here:
-           
-           
-       JOptionPane.showMessageDialog(null, "Book remove successfully!");
        
        
        
-       }
+       
+     
        
        }
     }//GEN-LAST:event_btnRemoveBookActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRemoveBook;
-    private javax.swing.JComboBox cmbRemoveType;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblError;
     private javax.swing.JTextField txtRemoveValue;
     // End of variables declaration//GEN-END:variables
 }

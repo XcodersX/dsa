@@ -7,6 +7,10 @@ package com.bookshop.gui;
 import com.bookshop.controller.AuthorJpaController;
 import com.bookshop.entity.Author;
 import com.bookshop.util.BinarySearchTree;
+import com.bookshop.util.ComboItem;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,10 +23,11 @@ public class NewAuthorWindow extends javax.swing.JFrame {
      * Creates new form NewAuthorWindow
      */
     private BinarySearchTree searchTree;
+   
     public NewAuthorWindow(){
     }
-    public NewAuthorWindow(BinarySearchTree bst) {
-        searchTree = bst;
+    public NewAuthorWindow(BinarySearchTree jcb) {
+        searchTree = jcb;
         initComponents();
         setTitle("Add New Author");
         
@@ -132,11 +137,12 @@ public class NewAuthorWindow extends javax.swing.JFrame {
             try {
                  AuthorJpaController authorController = new AuthorJpaController();
                  authorController.create(newAuthor);
-                 JOptionPane.showMessageDialog(null,"New Author is added successfully");
-                 
+                
+   
+            JOptionPane.showMessageDialog(null,"New Author is added successfully");      
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Author couldnt Added to the database");
+                JOptionPane.showMessageDialog(null,"Author couldnt Added to the database" + e.toString());
                 
             }
        

@@ -31,6 +31,7 @@ public class InsertWindow extends javax.swing.JInternalFrame {
     private AuthorJpaController ajc ;               //*********ajc variable used to access  Author JPA controller*************
     private TypeJpaController tjc;                  //*********tjc variable used to access Type JPA controller****************
     private BinarySearchTree searchTree;
+    private Integer bookIsbn;
  
     
     public InsertWindow(){
@@ -219,15 +220,19 @@ public class InsertWindow extends javax.swing.JInternalFrame {
         }
         else if(txtIsbn.getText().length() != 9){
             //* *****************check whether the ISBN has 9 digits***************
-        
+        JOptionPane.showMessageDialog(null, "There should be 9 digits for ISBN!");
         
         }else {            
         
             
           //To Xcoders :-  code for inserting a book into the database goes here
             
+            try {
+                bookIsbn=Integer.parseInt(txtIsbn.getText());
+            
+            
             Book book = new Book();
-            book.setIsbn(new Integer(txtIsbn.getText()));
+            book.setIsbn(bookIsbn);
             book.setTitle(txtBookTitle.getText());
           // book.setType(cmbType.getSelectedIndex());
             book.setAuthor(ajc.findAuthor(((ComboItem)cmbAuthor.getSelectedItem()).getKey()));
@@ -235,12 +240,16 @@ public class InsertWindow extends javax.swing.JInternalFrame {
             book.setType(tjc.findType(((ComboItem)cmbType.getSelectedItem()).getKey()));
            // System.out.println(ajc.findAuthor(((ComboItem)cmbType.getSelectedItem()).getKey()));
             
-            try {
                 BookJpaController bookController = new BookJpaController ();
                 bookController.create(book);
                 JOptionPane.showMessageDialog(null, "Book Inserted to the DataBase Successfully!!!!!");
                 searchTree.add(book);
-            } catch (Exception e) {
+                
+            } 
+         catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please Enter numeric value for ISBN");
+            }
+                catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error Occurred while inserting book to the database");
             }
         }
@@ -257,17 +266,19 @@ public class InsertWindow extends javax.swing.JInternalFrame {
     
     private void btnNewAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAuthorActionPerformed
         //********************Direct  to adding new Author Window****************
-        NewAuthorWindow nwAuthor =  new NewAuthorWindow();
+        NewAuthorWindow nwAuthor =  new NewAuthorWindow(searchTree);
         nwAuthor.setVisible(true);
     }//GEN-LAST:event_btnNewAuthorActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here
-        cmbAuthor.removeAllItems();
-         authors = ajc.findAuthorEntities();
+                   cmbAuthor .removeAllItems();
+          authors = ajc.findAuthorEntities();
         for(Author  au:authors){
-        //cmbAuthor.
-       // cmbAuthor.addItem(au.getName().toString() + " " +au.getSurname().toString());
+        //******************load authors names to combo box******************************************  
+      cmbAuthor.addItem(new ComboItem(au.getId(),au.getSurname().toString()+" "+au.getName().toString()));
+       
+     //cmbAuthor.addItem(new Item(au.getId(),au.getName().toString() + " " +au.getSurname().toString()));
         }
     }//GEN-LAST:event_btnRefreshActionPerformed
 
