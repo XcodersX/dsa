@@ -20,7 +20,7 @@ public class BinarySearchTree {
     private Book resultBook;
     private Node resultNode;
 
-    //viji----------------------------------------------------------------------
+    //vijani----------------------------------------------------------------------
     public void add(Book book) {
         Node node = new Node();
         node.setBook(book);
@@ -67,7 +67,7 @@ public class BinarySearchTree {
     }
 
     //sanu----------------------------------------------------------------------
-    //To vijis :: NonExistingBookException means if there isbn is wrong there wont be any book to delete 
+    //To vijani :: NonExistingBookException means if there isbn is wrong there wont be any book to delete 
     //so a book not exists error should be thrown
     public Book remove(Integer isbn) throws NonExistingBookException {
         Book bookRemoved = null;
